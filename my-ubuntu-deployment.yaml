@@ -23,6 +23,6 @@ spec:
             - /bin/bash
             - "-c"
             - "while true; do sleep 1000; done"
-          image: my-ubuntu:latest
+          image: nicolasmarcoux/my-ubuntu:latest
           imagePullPolicy: Always
           name: my-ubuntu
