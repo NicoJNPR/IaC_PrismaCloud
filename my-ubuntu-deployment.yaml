@@ -6,7 +6,7 @@ metadata:
     app: ubuntu
   name: ubuntu
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ubuntu
@@ -23,6 +23,6 @@ spec:
             - /bin/bash
             - "-c"
             - "while true; do sleep 1000; done"
-          image: "nicolasmarcoux/my-ubuntu/ubuntu:latest"
+          image: my-ubuntu/ubuntu:latest
           imagePullPolicy: Always
           name: my-ubuntu
