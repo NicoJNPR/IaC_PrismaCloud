@@ -22,7 +22,8 @@ spec:
             - "-c"
             - "while true; do sleep 1000; done"
           image: "nicolasmarcoux/my-ubuntu/ubuntu:latest"
+          imagePullSecrets:
+            - name: myregistrykey
           imagePullPolicy: IfNotPresent
           name: my-ubuntu
-      imagePullSecrets:
-        - name: myregistrykey
+
