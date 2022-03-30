@@ -21,7 +21,7 @@ spec:
             - /bin/bash
             - "-c"
             - "while true; do sleep 1000; done"
-          image: "https://hub.docker.com/repository/docker/nicolasmarcoux/my-ubuntu/ubuntu:latest"
+          image: "nicolasmarcoux/my-ubuntu/ubuntu:latest"
           imagePullPolicy: IfNotPresent
           name: my-ubuntu
       imagePullSecrets:
