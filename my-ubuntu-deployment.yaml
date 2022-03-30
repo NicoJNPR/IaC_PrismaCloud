@@ -15,9 +15,9 @@ spec:
       labels:
         app: my-ubuntu
     spec:
-      imagePullSecrets:
-        - name: myregistrykey3
       containers:
         - image: nicolasmarcoux/my-ubuntu:latest
           imagePullPolicy: Always
           name: my-ubuntu
+      imagePullSecrets:
+        - name: myregistrykey3
