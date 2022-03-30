@@ -15,6 +15,8 @@ spec:
       labels:
         app: ubuntu
     spec:
+      imagePullSecrets:
+        - name: myregistrykey
       containers:
         -
           command:
@@ -22,8 +24,5 @@ spec:
             - "-c"
             - "while true; do sleep 1000; done"
           image: "nicolasmarcoux/my-ubuntu/ubuntu:latest"
-          imagePullSecrets:
-            - name: myregistrykey
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: always
           name: my-ubuntu
-
