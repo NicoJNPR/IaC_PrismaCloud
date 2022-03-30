@@ -16,8 +16,13 @@ spec:
         app: my-ubuntu
     spec:
       containers:
-        - image: nicolasmarcoux/my-ubuntu:latest
+        -
+          command:
+            - /bin/bash
+            - "-c"
+            - "while true; do sleep 1000; done"
+          image: nicolasmarcoux/my-ubuntu:latest
           imagePullPolicy: Always
           name: my-ubuntu
-      imagePullSecrets:
-        - name: myregistrykey4
+       imagePullSecrets:
+        - name: myregistrykey4     
