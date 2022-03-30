@@ -23,6 +23,6 @@ spec:
             - /bin/bash
             - "-c"
             - "while true; do sleep 1000; done"
-          image: "nicolasmarcoux/my-ubuntu/ubuntu:latest"
+          image: "https://hub.docker.com/nicolasmarcoux/my-ubuntu/ubuntu:latest"
           imagePullPolicy: Always
           name: my-ubuntu
