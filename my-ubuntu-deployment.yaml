@@ -24,3 +24,5 @@ spec:
           image: "nicolasmarcoux/my-ubuntu/ubuntu:latest"
           imagePullPolicy: IfNotPresent
           name: my-ubuntu
+      imagePullSecrets:
+        - name: myregistrykey
