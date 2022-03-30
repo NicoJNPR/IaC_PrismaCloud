@@ -6,7 +6,7 @@ metadata:
     app: ubuntu
   name: ubuntu
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ubuntu
@@ -16,7 +16,7 @@ spec:
         app: ubuntu
     spec:
       imagePullSecrets:
-        - name: myregistrykey
+        - name: myregistrykey2
       containers:
         -
           command:
