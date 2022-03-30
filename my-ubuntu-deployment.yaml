@@ -20,4 +20,4 @@ spec:
           imagePullPolicy: Always
           name: my-ubuntu
       imagePullSecrets:
-        - name: myregistrykey3
+        - name: myregistrykey4
