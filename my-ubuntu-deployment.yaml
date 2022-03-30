@@ -3,26 +3,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: ubuntu
-  name: ubuntu
+    app: my-ubuntu
+  name: my-ubuntu
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: ubuntu
+      app: my-ubuntu
   template:
     metadata:
       labels:
-        app: ubuntu
+        app: my-ubuntu
     spec:
       imagePullSecrets:
         - name: myregistrykey2
       containers:
-        -
-          command:
-            - /bin/bash
-            - "-c"
-            - "while true; do sleep 1000; done"
-          image: nicolasmarcoux/my-ubuntu:latest
+        - image: nicolasmarcoux/my-ubuntu:latest
           imagePullPolicy: Always
           name: my-ubuntu
