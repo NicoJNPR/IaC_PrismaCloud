@@ -55,6 +55,8 @@ spec:
       - name: nginx-index-file
         configMap:
           name: index-html-configmap
+      imagePullSecrets:
+      - name: myregistrykey4
       containers:
       - name: my-app
         image: nicolasmarcoux/my-app:latest
@@ -64,8 +66,6 @@ spec:
         - name: https
           containerPort: 443
         imagePullPolicy: Always
-        imagePullSecrets:
-         - name: myregistrykey4
         volumeMounts:
         - mountPath: /etc/nginx/ssl
           name: secret-volume
@@ -73,4 +73,3 @@ spec:
           name: configmap-volume
         - mountPath: /usr/share/nginx/html/
           name: nginx-index-file
-
