@@ -29,52 +29,62 @@ spec:
     port: 443
     protocol: TCP
     targetPort: 443
----
+--- 
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+metadata: 
   name: my-app
   namespace: eks-my-app-ns
-spec:
-   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-     maxUnavailable: 0
-     maxSurge: 1
+spec: 
   replicas: 2
-  selector:
-    matchLabels:
+  selector: 
+    matchLabels: 
       app: my-app
-  template:
-    metadata:
-      labels:
+  strategy: 
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template: 
+    metadata: 
+      labels: 
         app: my-app
-    spec:
-      volumes:
-      - name: secret-volume
-        secret:
-           secretName: nginx-certs-keys
-      - name: configmap-volume
-        configMap:
-          name: nginxconfigmap
-      - name: nginx-index-file
-        configMap:
-          name: index-html-configmap
-      imagePullSecrets:
-      - name: myregistrykey4
-      containers:
-      - name: my-app
-        image: nicolasmarcoux/my-app:latest
-        ports:
-        - name: http
-          containerPort: 80
-        - name: https
-          containerPort: 443
-        imagePullPolicy: Always
-        volumeMounts:
-        - mountPath: /etc/nginx/ssl
+    spec: 
+      containers: 
+        - 
+          image: "nicolasmarcoux/my-app:latest"
+          imagePullPolicy: Always
+          name: my-app
+          ports: 
+            - 
+              containerPort: 80
+              name: http
+            - 
+              containerPort: 443
+              name: https
+          volumeMounts: 
+            - 
+              mountPath: /etc/nginx/ssl
+              name: secret-volume
+            - 
+              mountPath: /etc/nginx/conf.d
+              name: configmap-volume
+            - 
+              mountPath: /usr/share/nginx/html/
+              name: nginx-index-file
+      imagePullSecrets: 
+        - 
+          name: myregistrykey4
+      volumes: 
+        - 
           name: secret-volume
-        - mountPath: /etc/nginx/conf.d
+          secret: 
+            secretName: nginx-certs-keys
+        - 
+          configMap: 
+            name: nginxconfigmap
           name: configmap-volume
-        - mountPath: /usr/share/nginx/html/
+        - 
+          configMap: 
+            name: index-html-configmap
           name: nginx-index-file
