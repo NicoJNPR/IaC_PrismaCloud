@@ -56,14 +56,14 @@ spec:
         configMap:
           name: index-html-configmap
       containers:
-      - name: nginx
+      - name: my-app
         image: nicolasmarcoux/my-app:latest
         ports:
         - name: http
           containerPort: 80
         - name: https
           containerPort: 443
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         volumeMounts:
         - mountPath: /etc/nginx/ssl
           name: secret-volume
