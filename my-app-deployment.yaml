@@ -1,1 +1,75 @@
-
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index-html-configmap
+  namespace: eks-my-app-ns
+data:
+  index.html: |
+    <html>
+    <h1> Welcome </h1>
+    </br>
+    <h1> Demo webserver on EKS </h1>
+    </html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-loadbalancer
+  namespace: eks-my-app-ns
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: eks-my-app-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      volumes:
+      - name: secret-volume
+        secret:
+           secretName: nginx-certs-keys
+      - name: configmap-volume
+        configMap:
+          name: nginxconfigmap
+      - name: nginx-index-file
+        configMap:
+          name: index-html-configmap
+      containers:
+      - name: nginx
+        image: nicolasmarcoux/my-app:latest
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /etc/nginx/ssl
+          name: secret-volume
+        - mountPath: /etc/nginx/conf.d
+          name: configmap-volume
+        - mountPath: /usr/share/nginx/html/
+          name: nginx-index-file
+      imagePullSecrets:
+       - name: myregistrykey4
