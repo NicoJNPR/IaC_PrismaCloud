@@ -64,6 +64,8 @@ spec:
         - name: https
           containerPort: 443
         imagePullPolicy: Always
+        imagePullSecrets:
+         - name: myregistrykey4
         volumeMounts:
         - mountPath: /etc/nginx/ssl
           name: secret-volume
@@ -71,5 +73,4 @@ spec:
           name: configmap-volume
         - mountPath: /usr/share/nginx/html/
           name: nginx-index-file
-      imagePullSecrets:
-       - name: myregistrykey4
+
