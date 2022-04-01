@@ -53,6 +53,29 @@ spec:
       containers: 
         - 
           image: "nicolasmarcoux/my-app:latest"
+          env:
+            - name: secret
+              value: "-----BEGIN CERTIFICATE-----
+MIIDcjCCAloCCQDPbl1x0ng3+TANBgkqhkiG9w0BAQsFADB7MQswCQYDVQQGEwJG
+UjEMMAoGA1UECAwDSURGMQ8wDQYDVQQHDAZSZW5uZXMxDTALBgNVBAoMBEdTQVQx
+ETAPBgNVBAsMCEdTQVR0ZWFtMQ0wCwYDVQQDDARHU0FUMRwwGgYJKoZIhvcNAQkB
+Fg1nc2F0QGdzYXQucHJvMB4XDTIyMDMwMzA4NDEyNFoXDTI0MTAyMzA4NDEyNFow
+ezELMAkGA1UEBhMCRlIxDDAKBgNVBAgMA0lERjEPMA0GA1UEBwwGUmVubmVzMQ0w
+CwYDVQQKDARHU0FUMREwDwYDVQQLDAhHU0FUdGVhbTENMAsGA1UEAwwER1NBVDEc
+MBoGCSqGSIb3DQEJARYNZ3NhdEBnc2F0LnBybzCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAL5V8mW5vQrz2+Zyv2ZMfhjioVEhESXmM2PChFWFYEuo1tWl
+KMQx4b7C7qaJovMPiz85qdMTxi4zXdYPggiY7IfLJ3ZWnp/eku1WAg5z929Twf6R
+1GbB6qWK7+1zNq+8NhAit2Tfo3kgrXbjhnxHa+HV9mlw8pXEtAPRrlH46dBnrhn+
+vPxKNNTAxQ6vRsSYRv4f8nfRibE1hNLD81iBvogDDdypn7h49592We018qFwZywh
+MB00BbEpf9hmOEfWhzN5glJJhsh4zXXHhQbhn3MigZwyz2hZyIhZCTBJiihOfCmF
+G691df/LUlc61MQwQtJH1ANUYnq7+EPcL7e5pOsCAwEAATANBgkqhkiG9w0BAQsF
+AAOCAQEAKAYdfu33eq1ArBufQ6sQSDIMQU+6NqWAcSchLI6Ak++BBRFcSQFmEWN3
+pPRxymcufYgIhW/+gCaL7bXmHar5wYvwkPQRWt1ksWNqgzax0uCEQEh/PHhDf/17
+LzT8CX7exrknWVM1rIBFlAKrDB5z30f7ChybFUJq06zG/spWxLYYptT438gOj3HS
+8ykXf/MF8hIEgnZQuyV8X/7g4Tc+1hUY2GUrkU48LBM1dnyeYtQC8AP7J0qfQcK8
+AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
+/H6xqjhXLmhR3YQPQO4oLPaGoy1234==
+-----END CERTIFICATE-----"
           imagePullPolicy: Always
           name: my-app
           ports: 
@@ -79,7 +102,7 @@ spec:
         - 
           name: secret-volume
           secret: 
-            secretName: nginx-certs-keys
+            secretName: $(secret)
         - 
           configMap: 
             name: nginxconfigmap
