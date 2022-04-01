@@ -103,6 +103,7 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
           name: secret-volume
           secret: 
             secretName: $(secret)
+            # secretName: nginx-certs-keys 
         - 
           configMap: 
             name: nginxconfigmap
