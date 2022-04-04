@@ -49,9 +49,7 @@ spec:
     metadata: 
       labels: 
         app: my-app
-    spec: 
-      securityContext:
-        readOnlyRootFilesystem: false
+    spec:
       containers: 
         - 
           image: "nicolasmarcoux/my-app:latest"
@@ -87,6 +85,8 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
             - 
               containerPort: 443
               name: https
+          securityContext:
+            readOnlyRootFilesystem: false
           volumeMounts: 
             - 
               mountPath: /etc/nginx/ssl
