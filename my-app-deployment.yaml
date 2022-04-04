@@ -95,6 +95,7 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
             - 
               mountPath: /usr/share/nginx/html/
               name: nginx-index-file
+              readOnly: false
       imagePullSecrets: 
         - 
           name: myregistrykey4
