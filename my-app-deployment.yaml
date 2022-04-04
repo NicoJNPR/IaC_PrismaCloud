@@ -14,12 +14,12 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service-loadbalancer2
+  name: nginx-service-loadbalancer
   namespace: eks-my-app-ns
 spec:
   type: LoadBalancer
   selector:
-    app: my-app2
+    app: my-app
   ports:
   - name: http
     port: 80
@@ -33,13 +33,13 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: my-app2
+  name: my-app
   namespace: eks-my-app-ns
 spec: 
   replicas: 2
   selector: 
     matchLabels: 
-      app: my-app2
+      app: my-app
   strategy: 
     rollingUpdate: 
       maxSurge: 1
@@ -48,7 +48,7 @@ spec:
   template: 
     metadata: 
       labels: 
-        app: my-app2
+        app: my-app
     spec:
       containers: 
         - 
@@ -77,7 +77,7 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
 /H6xqjhXLmhR3YQPQO4oLPaGoy1234==
 -----END CERTIFICATE-----"
           imagePullPolicy: Always
-          name: my-app2
+          name: my-app
           ports: 
             - 
               containerPort: 80
