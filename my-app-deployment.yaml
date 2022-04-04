@@ -50,6 +50,8 @@ spec:
       labels: 
         app: my-app
     spec: 
+      securityContext:
+        readOnlyRootFilesystem: false
       containers: 
         - 
           image: "nicolasmarcoux/my-app:latest"
@@ -114,6 +116,3 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
             name: index-html-configmap
             defaultMode: 0777
           name: nginx-index-file
-      securityContext:
-        readOnlyRootFilesystem: false
-
