@@ -94,10 +94,10 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
             - 
               mountPath: /etc/nginx/conf.d
               name: configmap-volume
-            - 
-              mountPath: /usr/share/nginx/html/
-              name: nginx-index-file
-              readOnly: false
+           # - 
+              #mountPath: /usr/share/nginx/html/
+              #name: nginx-index-file
+              #readOnly: false
       imagePullSecrets: 
         - 
           name: myregistrykey4
@@ -111,8 +111,8 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
           configMap: 
             name: nginxconfigmap
           name: configmap-volume
-        - 
-          configMap: 
-            name: index-html-configmap
-            defaultMode: 0777
-          name: nginx-index-file
+        #- 
+        #  configMap: 
+        #    name: index-html-configmap
+        #    defaultMode: 0777
+        #  name: nginx-index-file
