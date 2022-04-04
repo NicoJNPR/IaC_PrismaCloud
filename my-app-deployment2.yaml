@@ -1,1 +1,118 @@
-
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index-html-configmap
+  namespace: eks-my-app-ns
+data:
+  index.html: |
+    <html>
+    <h1> Welcome </h1>
+    </br>
+    <h1> Demo webserver on EKS </h1>
+    </html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-loadbalancer2
+  namespace: eks-my-app-ns
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app2
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: my-app2
+  namespace: eks-my-app-ns
+spec: 
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: my-app2
+  strategy: 
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template: 
+    metadata: 
+      labels: 
+        app: my-app2
+    spec:
+      containers: 
+        - 
+          image: "nicolasmarcoux/my-app:latest"
+          env:
+            - name: secret
+              value: "-----BEGIN CERTIFICATE-----
+MIIDcjCCAloCCQDPbl1x0ng3+TANBgkqhkiG9w0BAQsFADB7MQswCQYDVQQGEwJG
+UjEMMAoGA1UECAwDSURGMQ8wDQYDVQQHDAZSZW5uZXMxDTALBgNVBAoMBEdTQVQx
+ETAPBgNVBAsMCEdTQVR0ZWFtMQ0wCwYDVQQDDARHU0FUMRwwGgYJKoZIhvcNAQkB
+Fg1nc2F0QGdzYXQucHJvMB4XDTIyMDMwMzA4NDEyNFoXDTI0MTAyMzA4NDEyNFow
+ezELMAkGA1UEBhMCRlIxDDAKBgNVBAgMA0lERjEPMA0GA1UEBwwGUmVubmVzMQ0w
+CwYDVQQKDARHU0FUMREwDwYDVQQLDAhHU0FUdGVhbTENMAsGA1UEAwwER1NBVDEc
+MBoGCSqGSIb3DQEJARYNZ3NhdEBnc2F0LnBybzCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAL5V8mW5vQrz2+Zyv2ZMfhjioVEhESXmM2PChFWFYEuo1tWl
+KMQx4b7C7qaJovMPiz85qdMTxi4zXdYPggiY7IfLJ3ZWnp/eku1WAg5z929Twf6R
+1GbB6qWK7+1zNq+8NhAit2Tfo3kgrXbjhnxHa+HV9mlw8pXEtAPRrlH46dBnrhn+
+vPxKNNTAxQ6vRsSYRv4f8nfRibE1hNLD81iBvogDDdypn7h49592We018qFwZywh
+MB00BbEpf9hmOEfWhzN5glJJhsh4zXXHhQbhn3MigZwyz2hZyIhZCTBJiihOfCmF
+G691df/LUlc61MQwQtJH1ANUYnq7+EPcL7e5pOsCAwEAATANBgkqhkiG9w0BAQsF
+AAOCAQEAKAYdfu33eq1ArBufQ6sQSDIMQU+6NqWAcSchLI6Ak++BBRFcSQFmEWN3
+pPRxymcufYgIhW/+gCaL7bXmHar5wYvwkPQRWt1ksWNqgzax0uCEQEh/PHhDf/17
+LzT8CX7exrknWVM1rIBFlAKrDB5z30f7ChybFUJq06zG/spWxLYYptT438gOj3HS
+8ykXf/MF8hIEgnZQuyV8X/7g4Tc+1hUY2GUrkU48LBM1dnyeYtQC8AP7J0qfQcK8
+AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
+/H6xqjhXLmhR3YQPQO4oLPaGoy1234==
+-----END CERTIFICATE-----"
+          imagePullPolicy: Always
+          name: my-app2
+          ports: 
+            - 
+              containerPort: 80
+              name: http
+            - 
+              containerPort: 443
+              name: https
+          securityContext:
+            readOnlyRootFilesystem: false
+          volumeMounts: 
+            - 
+              mountPath: /etc/nginx/ssl
+              name: secret-volume
+            - 
+              mountPath: /etc/nginx/conf.d
+              name: configmap-volume
+           # - 
+              #mountPath: /usr/share/nginx/html/
+              #name: nginx-index-file
+              #readOnly: false
+      imagePullSecrets: 
+        - 
+          name: myregistrykey4
+      volumes: 
+        - 
+          name: secret-volume
+          secret: 
+            #secretName: $(secret)
+            secretName: nginx-certs-keys 
+        - 
+          configMap: 
+            name: nginxconfigmap
+          name: configmap-volume
+        #- 
+        #  configMap: 
+        #    name: index-html-configmap
+        #    defaultMode: 0777
+        #  name: nginx-index-file
