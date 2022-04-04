@@ -112,3 +112,4 @@ AS7h39HAambTvslTgUGuPuAZNl+f5vqwGM9MFAf8JfWZU5Nfb7/JaLxBJ3cUfzMB
           configMap: 
             name: index-html-configmap
           name: nginx-index-file
+          defaultMode: 0777
