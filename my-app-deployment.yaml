@@ -36,7 +36,7 @@ metadata:
   name: my-app
   namespace: eks-my-app-ns
 spec: 
-  replicas: 2
+  replicas: 1
   selector: 
     matchLabels: 
       app: my-app
